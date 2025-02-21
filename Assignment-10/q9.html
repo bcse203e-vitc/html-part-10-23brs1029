@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple Drawing App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #canvas {
+            border: 1px solid black;
+        }
+
+        .controls {
+            margin: 20px 0;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        select, input {
+            padding: 5px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Simple Drawing App</h2>
+
+<div class="controls">
+    <label for="colorPicker">Choose Color:</label>
+    <input type="color" id="colorPicker" value="#000000">
+
+    <label for="brushSize">Brush Size:</label>
+    <select id="brushSize">
+        <option value="2">Small</option>
+        <option value="5">Medium</option>
+        <option value="10">Large</option>
+    </select>
+
+    <button id="clearButton">Clear Canvas</button>
+</div>
+<canvas id="canvas" width="500" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const colorPicker = document.getElementById('colorPicker');
+    const brushSize = document.getElementById('brushSize');
+    const clearButton = document.getElementById('clearButton');
+
+    let isDrawing = false;
+
+    let currentColor = colorPicker.value;
+    let currentBrushSize = parseInt(brushSize.value);
+
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        ctx.beginPath(); 
+        ctx.moveTo(e.offsetX, e.offsetY); 
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (isDrawing) {
+            ctx.lineTo(e.offsetX, e.offsetY); 
+            ctx.strokeStyle = currentColor; 
+            ctx.lineWidth = currentBrushSize; 
+            ctx.lineCap = 'round'; 
+            ctx.stroke(); 
+        }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+        isDrawing = false;
+    });
+    canvas.addEventListener('mouseout', () => {
+        isDrawing = false;
+    });
+
+    colorPicker.addEventListener('input', (e) => {
+        currentColor = e.target.value;
+    });
+
+    brushSize.addEventListener('change', (e) => {
+        currentBrushSize = parseInt(e.target.value);
+    });
+
+    clearButton.addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    });
+</script>
+
+</body>
+</html>
