@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Multiplication Table Generator</title>
+</head> 
+<body>
+
+    <h2>Multiplication Table Generator</h2>
+    
+    <fieldset>
+        <legend>Enter a Number</legend>
+        <label for="numberInput">Number: </label>
+        <input type="number" id="numberInput" min="1" placeholder="Enter a number." required>
+        <button onclick="generateTable()">Generate Table</button>
+    </fieldset>
+    
+    <h3>Multiplication Table:</h3>
+    <table id="multiplicationTable" border="2">
+    </table>
+    
+    <script>
+        function generateTable() {
+    const number = document.getElementById('numberInput').value;
+
+    if (number === "" || isNaN(number) || number < 1) {
+        alert("Please enter a valid number.");
+        return;
+    }
+
+    const table = document.getElementById('multiplicationTable');
+    table.innerHTML = "";
+
+    const headerRow = document.createElement('tr');
+    const headerCell = document.createElement('th');
+    headerCell.textContent = `Multiplication Table: ${number}`;
+    headerRow.appendChild(headerCell);
+    table.appendChild(headerRow);
+
+    for (let i = 1; i <= 10; i++) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.textContent = `${number} x ${i} = ${number * i}`;
+        row.appendChild(cell);
+        table.appendChild(row);
+    }
+}
+    </script>
+    </body>
+</html>
+
+
