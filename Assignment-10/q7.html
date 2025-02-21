@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Live Word and Character Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        textarea {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 600px;
+            min-height: 100px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Live Word and Character Counter</h2>
+
+<textarea id="textarea" rows="6" cols="50" placeholder="Start typing..."></textarea>
+
+<p><strong>Character Count: </strong><span id="charCount">0</span></p>
+<p><strong>Word Count: </strong><span id="wordCount">0</span></p>
+
+<script>
+    const textarea = document.getElementById('textarea');
+    const charCount = document.getElementById('charCount');
+    const wordCount = document.getElementById('wordCount');
+
+    function updateCounters() {
+        const text = textarea.value;
+
+        const characters = text.length;
+        charCount.textContent = characters;
+
+        const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+        wordCount.textContent = words.length;
+
+        if (characters > 200) {
+            alert("You have exceeded 200 characters!");
+        }
+    }
+    textarea.addEventListener('input', updateCounters);
+</script>
+
+</body>
+</html>
